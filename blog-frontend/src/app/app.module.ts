@@ -10,6 +10,8 @@ import { PresentationComponent } from './pages/home/presentation/presentation.co
 import { ArticlesComponent } from './pages/home/articles/articles.component';
 import { LastArticlesComponent } from './pages/home/articles/last-articles/last-articles.component';
 import { PopularArticlesComponent } from './pages/home/articles/popular-articles/popular-articles.component';
+import { CreateArticleComponent } from './pages/create-article/create-article.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { PopularArticlesComponent } from './pages/home/articles/popular-articles
     PresentationComponent,
     ArticlesComponent,
     LastArticlesComponent,
-    PopularArticlesComponent
+    PopularArticlesComponent,
+    CreateArticleComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
