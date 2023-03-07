@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Article} from "../../../../shared/model/article";
+import {Post} from "../../../../shared/model/post";
 
 @Component({
   selector: 'app-last-articles',
@@ -7,7 +7,7 @@ import {Article} from "../../../../shared/model/article";
   styleUrls: ['./last-articles.component.scss']
 })
 export class LastArticlesComponent {
-  lastArticles: Article[] = [
+  lastArticles: Post[] = [
     {
       id: 1,
       title: 'Spring',
