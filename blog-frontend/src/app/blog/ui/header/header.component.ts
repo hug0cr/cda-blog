@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 import {KeycloakProfile} from "keycloak-js";
 import {Router} from "@angular/router";
@@ -8,23 +8,10 @@ import {Router} from "@angular/router";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  isAuthenticated?: boolean;
-  kcProfile?: KeycloakProfile;
+export class HeaderComponent {
+  @Input() isLoggedIn?: boolean;
 
   constructor(private keycloak: KeycloakService, private router: Router) {
-  }
-
-  ngOnInit(): void {
-    this.isLoggedIn().then(() => {
-      if (this.isAuthenticated) this.getProfil();
-    });
-  }
-
-  async onLogin() {
-    await this.keycloak.login({
-      redirectUri: window.location.origin + this.router.url,
-    });
   }
 
   onLogout() {
@@ -33,14 +20,8 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  async isLoggedIn(): Promise<void> {
-    this.keycloak.isLoggedIn().then(value => this.isAuthenticated = value);
-  }
-
-  getProfil() {
-    this.keycloak.loadUserProfile().then(value => {
-      this.kcProfile = value;
-    });
+  onClick() {
+    console.log(`HeaderComponent : ${this.isLoggedIn}`)
   }
 
 }

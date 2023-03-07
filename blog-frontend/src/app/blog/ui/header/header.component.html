@@ -15,21 +15,21 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
           </li>
-          <li *ngIf="isAuthenticated" class="nav-item">
+          <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/create-article">Create article</a>
           </li>
-          <li *ngIf="!isAuthenticated" class="nav-item">
+          <li class="nav-item">
 <!--            <a class="nav-link active" aria-current="page"   href="#">Login</a>-->
-            <button class="btn btn-outline-success" (click)="onLogin()">Login</button>
+            <button class="btn btn-outline-success" >Login</button>
           </li>
-          <li *ngIf="isAuthenticated" class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{kcProfile?.username}} {{kcProfile?.firstName}}
+              123
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">My profil</a></li>
               <li><a class="dropdown-item" href="#">My articles</a></li>
-              <li><a class="dropdown-item" (click)="getProfil()">Auth</a></li>
+              <li><a *ngIf="isLoggedIn" class="dropdown-item">Auth</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
