@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Article} from "../../../../shared/model/article";
+import {Post} from "../../../../shared/model/post";
 
 @Component({
   selector: 'app-popular-articles',
@@ -7,7 +7,7 @@ import {Article} from "../../../../shared/model/article";
   styleUrls: ['./popular-articles.component.scss']
 })
 export class PopularArticlesComponent {
-  popularArticles: Article[] = [
+  popularArticles: Post[] = [
     {
       id: 1,
       title: 'Spring',
