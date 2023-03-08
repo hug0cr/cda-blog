@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Post} from "../../../../shared/model/post";
+import {Post} from "../../../data/model/post";
 
 @Component({
   selector: 'app-popular-articles',

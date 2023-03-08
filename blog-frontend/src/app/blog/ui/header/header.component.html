@@ -18,13 +18,15 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/create-article">Create article</a>
           </li>
-          <li class="nav-item">
-<!--            <a class="nav-link active" aria-current="page"   href="#">Login</a>-->
-            <button class="btn btn-outline-success" >Login</button>
+          <li *ngIf="!isLoggedIn" class="nav-item px-2">
+            <button (click)="onSignUp()" class="btn btn-outline-success">Sign up</button>
           </li>
-          <li class="nav-item dropdown">
+          <li *ngIf="!isLoggedIn" class="nav-item px-2">
+            <button (click)="onSignIn()" class="btn btn-outline-success">Sign in</button>
+          </li>
+          <li *ngIf="isLoggedIn && keycloakProfile" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              123
+              Welcome, {{keycloakProfile.username}}
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">My profil</a></li>

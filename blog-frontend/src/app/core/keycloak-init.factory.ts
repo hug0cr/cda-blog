@@ -8,12 +8,15 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         realm: 'cda-blog',
         clientId: 'frontend',
       },
+      // loadUserProfileAtStartUp: true,
       initOptions: {
         pkceMethod: 'S256',
-        // must match to the configured value in keycloak
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html',
         redirectUri: 'http://localhost:4200',
         // this will solve the error
-        checkLoginIframe: false
+        // checkLoginIframe: false
       }
     });
 }
