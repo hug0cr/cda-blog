@@ -20,8 +20,17 @@ public class FakeDataInit implements CommandLineRunner {
         bloggerDTO.setUsername("CommandLineBlogger");
         Long bloggerId = bloggerService.create(bloggerDTO);
 
+        PostDTO postDTO1 = getPostDTO("CommandLineTitle", bloggerId);
+        postService.create(postDTO1);
+        PostDTO postDTO2 = getPostDTO("Second CommandLineTitle", bloggerId);
+        postService.create(postDTO2);
+        PostDTO postDTO3 = getPostDTO("Third CommandLineTitle", bloggerId);
+        postService.create(postDTO3);
+    }
+
+    private static PostDTO getPostDTO(String title, Long bloggerId) {
         PostDTO postDTO = new PostDTO();
-        postDTO.setTitle("CommandLineTitle");
+        postDTO.setTitle(title);
         postDTO.setContent("""
                 Depuis le Command Line Runner,
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eleifend risus nec risus pharetra,
@@ -42,6 +51,6 @@ public class FakeDataInit implements CommandLineRunner {
                 """);
         postDTO.setPublished(true);
         postDTO.setBlogger(bloggerId);
-        postService.create(postDTO);
+        return postDTO;
     }
 }
