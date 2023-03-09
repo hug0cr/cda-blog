@@ -6,6 +6,7 @@ import {PageNotFoundComponent} from "./blog/page-not-found/page-not-found.compon
 import {AuthGuard} from "./core/auth.guard";
 import {BlogComponent} from "./blog/blog.component";
 import {ArticleDetailComponent} from "./blog/article-detail/article-detail.component";
+import {BloggerProfileComponent} from "./blog/blogger-profile/blogger-profile.component";
 
 const routes: Routes = [
   {
@@ -17,15 +18,6 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'create-article',
-        component: CreateArticleComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'page-not-found',
-        component: PageNotFoundComponent
-      },
-      {
         path: '',
         redirectTo: '/home',
         pathMatch: 'full'
@@ -34,9 +26,26 @@ const routes: Routes = [
         path: 'article/:id',
         component: ArticleDetailComponent
       },
+      {
+        path: 'article/:id',
+        component: ArticleDetailComponent
+      },
+      {
+        path: 'create-article',
+        component: CreateArticleComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'profile/:username',
+        component: BloggerProfileComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'page-not-found',
+        component: PageNotFoundComponent
+      },
     ]
   },
-
   {path: '**', redirectTo: "/page-not-found"},
 ];
 

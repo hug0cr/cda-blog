@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Article} from "../../../data/article";
+import {Article} from "../../../data/domain/article";
 
 @Component({
   selector: 'app-last-articles',

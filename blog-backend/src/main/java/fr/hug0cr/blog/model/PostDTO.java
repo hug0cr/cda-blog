@@ -3,6 +3,8 @@ package fr.hug0cr.blog.model;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.List;
+import java.util.UUID;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,8 +25,8 @@ public class PostDTO {
     @NotNull
     private Boolean published;
 
-//    @NotNull
-    private Long blogger;
+    @NotNull
+    private UUID blogger;
 
     private List<Long> comments;
 

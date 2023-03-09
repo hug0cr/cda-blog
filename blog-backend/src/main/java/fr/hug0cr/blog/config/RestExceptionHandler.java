@@ -3,9 +3,8 @@ package fr.hug0cr.blog.config;
 import fr.hug0cr.blog.model.ErrorResponse;
 import fr.hug0cr.blog.model.FieldError;
 import fr.hug0cr.blog.util.NotFoundException;
+import fr.hug0cr.blog.util.UnauthorizedException;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,6 +13,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestControllerAdvice(annotations = RestController.class)
@@ -46,6 +48,15 @@ public class RestExceptionHandler {
         errorResponse.setException(exception.getClass().getSimpleName());
         errorResponse.setFieldErrors(fieldErrors);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorized(final UnauthorizedException exception) {
+        final ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setHttpStatus(HttpStatus.UNAUTHORIZED.value());
+        errorResponse.setException(exception.getClass().getSimpleName());
+        errorResponse.setMessage(exception.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(ResponseStatusException.class)

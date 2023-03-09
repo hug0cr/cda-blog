@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Component
 public class FakeDataInit implements CommandLineRunner {
@@ -18,19 +20,21 @@ public class FakeDataInit implements CommandLineRunner {
     public void run(String... args) {
 
         BloggerDTO bloggerDTO = new BloggerDTO();
+        UUID bloggerUUID = UUID.randomUUID();
         String bloggerUsername = "CommandLineBlogger";
+        bloggerDTO.setId(bloggerUUID);
         bloggerDTO.setUsername(bloggerUsername);
         bloggerService.create(bloggerDTO);
 
-        PostDTO postDTO1 = getPostDTO("CommandLineTitle");
-        postService.create(postDTO1, bloggerUsername);
-        PostDTO postDTO2 = getPostDTO("Second CommandLineTitle");
-        postService.create(postDTO2, bloggerUsername);
-        PostDTO postDTO3 = getPostDTO("Third CommandLineTitle");
-        postService.create(postDTO3, bloggerUsername);
+        PostDTO postDTO1 = getPostDTO("CommandLineTitle", bloggerUUID);
+        postService.create(postDTO1, bloggerUUID);
+        PostDTO postDTO2 = getPostDTO("Second CommandLineTitle", bloggerUUID);
+        postService.create(postDTO2, bloggerUUID);
+        PostDTO postDTO3 = getPostDTO("Third CommandLineTitle", bloggerUUID);
+        postService.create(postDTO3, bloggerUUID);
     }
 
-    private static PostDTO getPostDTO(String title) {
+    private static PostDTO getPostDTO(String title, UUID bloggerUuid) {
         PostDTO postDTO = new PostDTO();
         postDTO.setTitle(title);
         postDTO.setContent("""
@@ -52,6 +56,7 @@ public class FakeDataInit implements CommandLineRunner {
                 in magna faucibus, euismod mattis ante eleifend.
                 """);
         postDTO.setPublished(true);
+        postDTO.setBlogger(bloggerUuid);
         return postDTO;
     }
 }

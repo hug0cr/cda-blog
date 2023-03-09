@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {BlogService} from "../data/blog.service";
-import {Article} from "../data/article";
+import {Article} from "../data/domain/article";
 
 @Component({
   selector: 'app-article-detail',

@@ -5,6 +5,8 @@ import fr.hug0cr.blog.service.BloggerService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,18 +30,18 @@ public class BloggerResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BloggerDTO> getBlogger(@PathVariable(name = "id") final Long id) {
+    public ResponseEntity<BloggerDTO> getBlogger(@PathVariable(name = "id") final UUID id) {
         return ResponseEntity.ok(bloggerService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createBlogger(@RequestBody @Valid final BloggerDTO bloggerDTO) {
+    public ResponseEntity<UUID> createBlogger(@RequestBody @Valid final BloggerDTO bloggerDTO) {
         return new ResponseEntity<>(bloggerService.create(bloggerDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateBlogger(@PathVariable(name = "id") final Long id,
+    public ResponseEntity<Void> updateBlogger(@PathVariable(name = "id") final UUID id,
             @RequestBody @Valid final BloggerDTO bloggerDTO) {
         bloggerService.update(id, bloggerDTO);
         return ResponseEntity.ok().build();
@@ -47,7 +49,7 @@ public class BloggerResource {
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteBlogger(@PathVariable(name = "id") final Long id) {
+    public ResponseEntity<Void> deleteBlogger(@PathVariable(name = "id") final UUID id) {
         bloggerService.delete(id);
         return ResponseEntity.noContent().build();
     }

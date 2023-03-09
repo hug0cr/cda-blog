@@ -29,13 +29,14 @@
               Welcome, {{keycloakProfile.username}}
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">My profil</a></li>
-              <li><a class="dropdown-item" href="#">My articles</a></li>
-              <li><a *ngIf="isLoggedIn" class="dropdown-item">Auth</a></li>
+              <li>
+                <a class="dropdown-item link" routerLink="/profile/{{keycloakProfile.username}}">My profile</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" (click)="onLogout()">Log out</a></li>
+              <li>
+                <a class="dropdown-item link" href="" (click)="onLogout()">Log out</a>
+              </li>
             </ul>
           </li>
         </ul>

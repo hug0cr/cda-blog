@@ -8,6 +8,7 @@ import fr.hug0cr.blog.repos.BloggerRepository;
 import fr.hug0cr.blog.repos.CommentRepository;
 import fr.hug0cr.blog.repos.PostRepository;
 import fr.hug0cr.blog.util.NotFoundException;
+import fr.hug0cr.blog.util.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -28,7 +30,7 @@ public class PostService {
     private final CommentRepository commentRepository;
 
     public PostService(final PostRepository postRepository,
-            final BloggerRepository bloggerRepository, final CommentRepository commentRepository) {
+                       final BloggerRepository bloggerRepository, final CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.bloggerRepository = bloggerRepository;
         this.commentRepository = commentRepository;
@@ -47,24 +49,30 @@ public class PostService {
                 .orElseThrow(NotFoundException::new);
     }
 
-    public Long create(final PostDTO postDTO, String username) {
-        Blogger blogger = bloggerRepository.findBloggerByUsername(username)
-                .orElseThrow(() -> new NotFoundException("blogger not found"));
-        postDTO.setBlogger(blogger.getId());
+    public Long create(final PostDTO postDTO, UUID authenticationUUID) {
+        checkIfUserIsOwner(postDTO, authenticationUUID);
         final Post post = new Post();
         mapToEntity(postDTO, post);
         return postRepository.save(post).getId();
     }
 
-    public void update(final Long id, final PostDTO postDTO) {
+    public void update(final Long id, final PostDTO postDTO, UUID authenticationUUID) {
+        checkIfUserIsOwner(postDTO, authenticationUUID);
         final Post post = postRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(postDTO, post);
         postRepository.save(post);
     }
 
-    public void delete(final Long id) {
+    public void delete(final Long id, UUID authenticationUUID) {
+        PostDTO postDTO = get(id);
+        checkIfUserIsOwner(postDTO, authenticationUUID);
         postRepository.deleteById(id);
+    }
+
+    private void checkIfUserIsOwner(PostDTO postDTO, UUID authenticationUUID) {
+        UUID postBlogger = postDTO.getBlogger();
+        if (!postBlogger.equals(authenticationUUID)) throw new UnauthorizedException();
     }
 
     private PostDTO mapToDTO(final Post post, final PostDTO postDTO) {

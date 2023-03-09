@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ArticleService} from "./model/article.service";
 import {BloggerService} from "./model/blogger.service";
-import {Article} from "./article";
+import {Article} from "./domain/article";
 import {forkJoin, map, Observable, switchMap} from "rxjs";
 import {BloggerDto} from "./model/dto/blogger-dto";
 

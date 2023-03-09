@@ -1,7 +1,7 @@
 package fr.hug0cr.blog.security;
 
-import fr.hug0cr.blog.model.BloggerDTO;
-import fr.hug0cr.blog.service.BloggerService;
+import fr.hug0cr.blog.domain.Blogger;
+import fr.hug0cr.blog.repos.BloggerRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,13 +16,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Component
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class JwtUserFilter extends OncePerRequestFilter {
 
-    private final BloggerService bloggerService;
+    private final BloggerRepository bloggerRepository;
     private final JwtDecoder jwtDecoder;
 
     @Override
@@ -35,13 +36,18 @@ public class JwtUserFilter extends OncePerRequestFilter {
 
             try {
                 Jwt jwtToken = jwtDecoder.decode(jwt);
+                UUID uuid = UUID.fromString(jwtToken.getSubject());
                 String username = jwtToken.getClaim("preferred_username");
 
-                if (username != null && !bloggerService.usernameExists(username)) {
+                boolean bloggerExist = bloggerRepository.findById(uuid).isPresent();
+
+                if (username != null && !bloggerExist) {
                     // Persist user if does not exist
-                    BloggerDTO blogger = new BloggerDTO();
+                    Blogger blogger = new Blogger();
+                    blogger.setId(uuid);
                     blogger.setUsername(username);
-                    bloggerService.create(blogger);
+                    Blogger savedBlogger = bloggerRepository.save(blogger);
+                    log.debug("New blogger saved : {}", savedBlogger);
                 }
             } catch (JwtException e) {
                 log.error(e.getMessage());

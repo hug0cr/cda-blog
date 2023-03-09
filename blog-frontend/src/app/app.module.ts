@@ -18,6 +18,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { BlogComponent } from './blog/blog.component';
 import {FormsModule} from "@angular/forms";
 import { ArticleDetailComponent } from './blog/article-detail/article-detail.component';
+import { BloggerProfileComponent } from './blog/blogger-profile/blogger-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ArticleDetailComponent } from './blog/article-detail/article-detail.com
     PageNotFoundComponent,
     BlogComponent,
     ArticleDetailComponent,
+    BloggerProfileComponent,
   ],
   imports: [
     BrowserModule,

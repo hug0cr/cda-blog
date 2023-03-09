@@ -34,8 +34,4 @@ export class HeaderComponent {
     });
   }
 
-  onClick() {
-    console.log(`HeaderComponent : ${this.isLoggedIn}`)
-  }
-
 }
