@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleDto} from "../data/model/dto/article-dto";
-import {ArticleService} from "../data/model/article.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {BlogService} from "../data/blog.service";
+import {Article} from "../data/article";
 
 @Component({
   selector: 'app-article-detail',
@@ -9,9 +9,9 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./article-detail.component.scss']
 })
 export class ArticleDetailComponent implements OnInit {
-  @Input() articleDto?: ArticleDto;
+  @Input() article?: Article;
 
-  constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router) {
+  constructor(private blogService: BlogService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -20,12 +20,13 @@ export class ArticleDetailComponent implements OnInit {
 
   getArticle() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.articleService.getArticle(id).subscribe(
+    this.blogService.getArticleById(id).subscribe(
       article => {
-        this.articleDto = article
+        this.article = article
       },
       error => {
         console.log(error)
+        window.history.replaceState(null, '', '/');
         this.router.navigate(['page-not-found'])
       });
   }

@@ -38,4 +38,18 @@ export class BlogService {
       })
     );
   }
+
+  getArticleById(articleId: number): Observable<Article> {
+    return this.articleService.getArticle(articleId).pipe(
+      switchMap(article => {
+        const bloggerId: number = article.blogger ?? 0;
+
+        return this.bloggerService.getBloggerById(bloggerId).pipe(
+          map(blogger => {
+            return new Article(article.id ?? 0, article.title, article.content, article.published, blogger ? blogger.username : 'unknown');
+          })
+        );
+      })
+    );
+  }
 }
