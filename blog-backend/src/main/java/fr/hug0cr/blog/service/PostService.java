@@ -13,8 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -37,8 +37,8 @@ public class PostService {
     public List<PostDTO> findAll() {
         final List<Post> posts = postRepository.findAll(Sort.by(DESC, "lastUpdated"));
         return posts.stream()
-                .map((post) -> mapToDTO(post, new PostDTO()))
-                .collect(Collectors.toList());
+                .map(post -> mapToDTO(post, new PostDTO()))
+                .toList();
     }
 
     public PostDTO get(final Long id) {
@@ -75,7 +75,7 @@ public class PostService {
         postDTO.setBlogger(post.getBlogger() == null ? null : post.getBlogger().getId());
         postDTO.setComments(post.getComments() == null ? null : post.getComments().stream()
                 .map(Comment::getId)
-                .collect(Collectors.toList()));
+                .toList());
         return postDTO;
     }
 
@@ -91,7 +91,7 @@ public class PostService {
         if (comments.size() != (postDTO.getComments() == null ? 0 : postDTO.getComments().size())) {
             throw new NotFoundException("one of comments not found");
         }
-        post.setComments(comments.stream().collect(Collectors.toSet()));
+        post.setComments(new HashSet<>(comments));
         return post;
     }
 
