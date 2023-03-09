@@ -24,6 +24,7 @@ export class CreateArticleComponent {
       response => {
         // Gérer la réponse du backend si nécessaire
         console.log(response);
+        this.redirectToArticle(response)
       },
       error => {
         // Gérer les erreurs si nécessaire
@@ -33,7 +34,7 @@ export class CreateArticleComponent {
   }
 
   private redirectToArticle(articleId: number) {
-    // TODO : Redirect after form submit
+    this.router.navigate(['article', articleId])
   }
 
 

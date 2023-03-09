@@ -18,4 +18,8 @@ export class ArticleService {
   createArticle(article: ArticleDto): Observable<number> {
     return this.http.post<number>(this.apiUrl, article);
   }
+
+  getArticle(id: number) {
+    return this.http.get<ArticleDto>(`${this.apiUrl}/${id}`)
+  }
 }

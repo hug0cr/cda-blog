@@ -5,6 +5,7 @@ import {CreateArticleComponent} from "./blog/create-article/create-article.compo
 import {PageNotFoundComponent} from "./blog/page-not-found/page-not-found.component";
 import {AuthGuard} from "./core/auth.guard";
 import {BlogComponent} from "./blog/blog.component";
+import {ArticleDetailComponent} from "./blog/article-detail/article-detail.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
         path: '',
         redirectTo: '/home',
         pathMatch: 'full'
+      },
+      {
+        path: 'article/:id',
+        component: ArticleDetailComponent
       },
     ]
   },

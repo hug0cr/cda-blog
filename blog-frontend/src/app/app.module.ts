@@ -17,6 +17,7 @@ import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {HttpClientModule} from "@angular/common/http";
 import { BlogComponent } from './blog/blog.component';
 import {FormsModule} from "@angular/forms";
+import { ArticleDetailComponent } from './blog/article-detail/article-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {FormsModule} from "@angular/forms";
     CreateArticleComponent,
     PageNotFoundComponent,
     BlogComponent,
+    ArticleDetailComponent,
   ],
   imports: [
     BrowserModule,
