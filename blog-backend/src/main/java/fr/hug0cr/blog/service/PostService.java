@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.data.domain.Sort.Direction.DESC;
+
 
 @Transactional
 @Service
@@ -33,7 +35,7 @@ public class PostService {
     }
 
     public List<PostDTO> findAll() {
-        final List<Post> posts = postRepository.findAll(Sort.by("id"));
+        final List<Post> posts = postRepository.findAll(Sort.by(DESC, "lastUpdated"));
         return posts.stream()
                 .map((post) -> mapToDTO(post, new PostDTO()))
                 .collect(Collectors.toList());
