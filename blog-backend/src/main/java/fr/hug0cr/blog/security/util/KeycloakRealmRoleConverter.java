@@ -1,4 +1,4 @@
-package fr.hug0cr.blog.config.util;
+package fr.hug0cr.blog.security.util;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;

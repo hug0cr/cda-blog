@@ -17,7 +17,7 @@ export class BlogService {
   getLastArticles(): Observable<Article[]> {
     return this.articleService.getArticles().pipe(
       switchMap(articles => {
-        const bloggerIds: number[] = articles.map(article => article.blogger);
+        const bloggerIds: number[] = articles.map(article => article.blogger ?? 0);
         const uniqueBloggerIds: number[] = [...new Set(bloggerIds)];
 
         const bloggers$: Observable<BloggerDto>[] = uniqueBloggerIds.map(bloggerId => {
@@ -29,7 +29,7 @@ export class BlogService {
             const lastArticles: Article[] = [];
             articles.forEach(article => {
               const blogger = bloggers.find(blogger => blogger.id === article.blogger);
-              const articleDomain = new Article(article.id, article.title, article.content, article.published, blogger ? blogger.username : 'unknown');
+              const articleDomain = new Article(article.id ?? 0, article.title, article.content, article.published, blogger ? blogger.username : 'unknown');
               lastArticles.push(articleDomain);
             })
             return lastArticles;

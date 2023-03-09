@@ -16,6 +16,7 @@ import {initializeKeycloak} from "./core/keycloak-init.factory";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {HttpClientModule} from "@angular/common/http";
 import { BlogComponent } from './blog/blog.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BlogComponent } from './blog/blog.component';
     AppRoutingModule,
     KeycloakAngularModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [
     {

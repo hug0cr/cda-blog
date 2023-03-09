@@ -16,19 +16,21 @@ public class FakeDataInit implements CommandLineRunner {
     
     @Override
     public void run(String... args) {
-        BloggerDTO bloggerDTO = new BloggerDTO();
-        bloggerDTO.setUsername("CommandLineBlogger");
-        Long bloggerId = bloggerService.create(bloggerDTO);
 
-        PostDTO postDTO1 = getPostDTO("CommandLineTitle", bloggerId);
-        postService.create(postDTO1);
-        PostDTO postDTO2 = getPostDTO("Second CommandLineTitle", bloggerId);
-        postService.create(postDTO2);
-        PostDTO postDTO3 = getPostDTO("Third CommandLineTitle", bloggerId);
-        postService.create(postDTO3);
+        BloggerDTO bloggerDTO = new BloggerDTO();
+        String bloggerUsername = "CommandLineBlogger";
+        bloggerDTO.setUsername(bloggerUsername);
+        bloggerService.create(bloggerDTO);
+
+        PostDTO postDTO1 = getPostDTO("CommandLineTitle");
+        postService.create(postDTO1, bloggerUsername);
+        PostDTO postDTO2 = getPostDTO("Second CommandLineTitle");
+        postService.create(postDTO2, bloggerUsername);
+        PostDTO postDTO3 = getPostDTO("Third CommandLineTitle");
+        postService.create(postDTO3, bloggerUsername);
     }
 
-    private static PostDTO getPostDTO(String title, Long bloggerId) {
+    private static PostDTO getPostDTO(String title) {
         PostDTO postDTO = new PostDTO();
         postDTO.setTitle(title);
         postDTO.setContent("""
@@ -50,7 +52,6 @@ public class FakeDataInit implements CommandLineRunner {
                 in magna faucibus, euismod mattis ante eleifend.
                 """);
         postDTO.setPublished(true);
-        postDTO.setBlogger(bloggerId);
         return postDTO;
     }
 }

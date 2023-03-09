@@ -9,11 +9,12 @@ import fr.hug0cr.blog.repos.CommentRepository;
 import fr.hug0cr.blog.repos.PostRepository;
 import fr.hug0cr.blog.util.NotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 
 
 @Transactional
@@ -44,7 +45,10 @@ public class PostService {
                 .orElseThrow(NotFoundException::new);
     }
 
-    public Long create(final PostDTO postDTO) {
+    public Long create(final PostDTO postDTO, String username) {
+        Blogger blogger = bloggerRepository.findBloggerByUsername(username)
+                .orElseThrow(() -> new NotFoundException("blogger not found"));
+        postDTO.setBlogger(blogger.getId());
         final Post post = new Post();
         mapToEntity(postDTO, post);
         return postRepository.save(post).getId();
@@ -68,7 +72,7 @@ public class PostService {
         postDTO.setPublished(post.getPublished());
         postDTO.setBlogger(post.getBlogger() == null ? null : post.getBlogger().getId());
         postDTO.setComments(post.getComments() == null ? null : post.getComments().stream()
-                .map(comment -> comment.getId())
+                .map(Comment::getId)
                 .collect(Collectors.toList()));
         return postDTO;
     }

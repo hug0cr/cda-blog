@@ -1,13 +1,13 @@
 <section class="container">
-  <form>
+  <form (ngSubmit)="onSubmit()" #articleForm="ngForm">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="email" class="form-control" id="title" placeholder="ArticleDto title">
+      <input [(ngModel)]="articleDto.title" type="text" class="form-control" id="title" name="title" required>
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">ArticleDto content</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <label for="content" class="form-label">ArticleDto content</label>
+      <textarea [(ngModel)]="articleDto.content" class="form-control" id="content" name="content" rows="3" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!articleForm.form.valid">Submit</button>
   </form>
 </section>

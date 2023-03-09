@@ -1,7 +1,7 @@
 export interface ArticleDto {
-  id: number;
+  id?: number;
   title: string;
   content: string;
-  blogger: number
+  blogger?: number
   published: boolean;
 }

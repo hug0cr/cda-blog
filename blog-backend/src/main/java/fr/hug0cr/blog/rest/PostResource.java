@@ -4,11 +4,14 @@ import fr.hug0cr.blog.model.PostDTO;
 import fr.hug0cr.blog.service.PostService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -34,8 +37,9 @@ public class PostResource {
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createPost(@RequestBody @Valid final PostDTO postDTO) {
-        return new ResponseEntity<>(postService.create(postDTO), HttpStatus.CREATED);
+    @Secured("ROLE_USER")
+    public ResponseEntity<Long> createPost(@RequestBody @Valid final PostDTO postDTO, Authentication authentication) {
+        return new ResponseEntity<>(postService.create(postDTO, authentication.getName()), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

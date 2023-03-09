@@ -37,7 +37,7 @@ public class Blogger {
     )
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(nullable = false, unique = true, length = 200)
     private String username;
 
     @OneToMany(mappedBy = "blogger")

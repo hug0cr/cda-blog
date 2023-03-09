@@ -23,7 +23,7 @@ public class PostDTO {
     @NotNull
     private Boolean published;
 
-    @NotNull
+//    @NotNull
     private Long blogger;
 
     private List<Long> comments;
