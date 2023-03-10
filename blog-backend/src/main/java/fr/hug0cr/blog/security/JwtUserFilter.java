@@ -51,9 +51,9 @@ public class JwtUserFilter extends OncePerRequestFilter {
                 }
             } catch (JwtException e) {
                 log.error(e.getMessage());
+                filterChain.doFilter(request, response);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

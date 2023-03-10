@@ -49,6 +49,13 @@ public class PostService {
                 .orElseThrow(NotFoundException::new);
     }
 
+    public List<PostDTO> findByBloggerId(UUID bloggerId) {
+        List<Post> byBloggerId = postRepository.findByBloggerId(bloggerId);
+        return byBloggerId.stream()
+                .map(post -> mapToDTO(post, new PostDTO()))
+                .toList();
+    }
+
     public Long create(final PostDTO postDTO, UUID authenticationUUID) {
         checkIfUserIsOwner(postDTO, authenticationUUID);
         final Post post = new Post();
