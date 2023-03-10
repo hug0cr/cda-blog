@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./blog/home/home.component";
-import {CreateArticleComponent} from "./blog/create-article/create-article.component";
-import {PageNotFoundComponent} from "./blog/page-not-found/page-not-found.component";
+import {HomeComponent} from "./blog/pages/home/home.component";
+import {CreateArticleComponent} from "./blog/pages/create-article/create-article.component";
+import {PageNotFoundComponent} from "./blog/pages/page-not-found/page-not-found.component";
 import {AuthGuard} from "./core/auth.guard";
 import {BlogComponent} from "./blog/blog.component";
-import {ArticleDetailComponent} from "./blog/article-detail/article-detail.component";
-import {BloggerProfileComponent} from "./blog/blogger-profile/blogger-profile.component";
+import {ArticleDetailComponent} from "./blog/pages/article-detail/article-detail.component";
+import {BloggerProfileComponent} from "./blog/pages/blogger-profile/blogger-profile.component";
 
 const routes: Routes = [
   {

@@ -15,7 +15,7 @@ export class BloggerService {
     return this.http.get<BloggerDto[]>(this.apiUrl)
   }
 
-  getBloggerById(id: number): Observable<BloggerDto> {
+  getBloggerById(id: string): Observable<BloggerDto> {
     return this.http.get<BloggerDto>(`${this.apiUrl}/${id}`);
   }
 }

@@ -17,10 +17,11 @@ export class BlogService {
   getLastArticles(): Observable<Article[]> {
     return this.articleService.getArticles().pipe(
       switchMap(articles => {
-        const bloggerIds: number[] = articles.map(article => article.blogger ?? 0);
-        const uniqueBloggerIds: number[] = [...new Set(bloggerIds)];
+        const bloggerIds: string[] = articles.map(article => article.blogger ?? '');
+        const uniqueBloggerIds: string[] = [...new Set(bloggerIds)];
 
         const bloggers$: Observable<BloggerDto>[] = uniqueBloggerIds.map(bloggerId => {
+          console.log(bloggerId)
           return this.bloggerService.getBloggerById(bloggerId);
         });
 
@@ -42,7 +43,7 @@ export class BlogService {
   getArticleById(articleId: number): Observable<Article> {
     return this.articleService.getArticle(articleId).pipe(
       switchMap(article => {
-        const bloggerId: number = article.blogger ?? 0;
+        const bloggerId: string = article.blogger ?? '';
 
         return this.bloggerService.getBloggerById(bloggerId).pipe(
           map(blogger => {

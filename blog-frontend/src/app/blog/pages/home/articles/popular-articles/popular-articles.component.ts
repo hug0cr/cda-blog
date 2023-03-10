@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ArticleDto} from "../../../data/model/dto/article-dto";
+import {ArticleDto} from "../../../../data/model/dto/article-dto";
 
 @Component({
   selector: 'app-popular-articles',

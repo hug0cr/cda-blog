@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -36,11 +37,13 @@ public class BloggerResource {
 
     @PostMapping
     @ApiResponse(responseCode = "201")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UUID> createBlogger(@RequestBody @Valid final BloggerDTO bloggerDTO) {
         return new ResponseEntity<>(bloggerService.create(bloggerDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<Void> updateBlogger(@PathVariable(name = "id") final UUID id,
             @RequestBody @Valid final BloggerDTO bloggerDTO) {
         bloggerService.update(id, bloggerDTO);
@@ -49,6 +52,7 @@ public class BloggerResource {
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteBlogger(@PathVariable(name = "id") final UUID id) {
         bloggerService.delete(id);
         return ResponseEntity.noContent().build();

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 import {KeycloakProfile} from "keycloak-js";
-import {Router} from "@angular/router";
+import {BloggerService} from "../../data/model/blogger.service";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,8 @@ export class HeaderComponent {
   @Input() isLoggedIn?: boolean;
   @Input() keycloakProfile?: KeycloakProfile | null;
 
-  constructor(private keycloakService: KeycloakService, private router: Router) {
+  constructor(private keycloakService: KeycloakService,
+              private bloggerService: BloggerService) {
   }
 
   onSignUp() {
@@ -32,6 +33,10 @@ export class HeaderComponent {
     this.keycloakService.logout('http://localhost:4200').then(r => {
       console.log(r);
     });
+  }
+
+  onClick() {
+    this.bloggerService.getBloggerById('6bf22cb9-7446-4ce6-b8a7-7c44ed354196')
   }
 
 }
