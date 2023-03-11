@@ -7,5 +7,5 @@ import {KeycloakProfile} from "keycloak-js";
   styleUrls: ['./blogger-information.component.scss']
 })
 export class BloggerInformationComponent {
-  @Input() keycloakProfile?: KeycloakProfile | null;
+  @Input() keycloakProfile?: KeycloakProfile;
 }
