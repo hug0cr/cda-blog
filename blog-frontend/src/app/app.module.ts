@@ -19,6 +19,8 @@ import { BlogComponent } from './blog/blog.component';
 import {FormsModule} from "@angular/forms";
 import { ArticleDetailComponent } from './blog/pages/article-detail/article-detail.component';
 import { BloggerProfileComponent } from './blog/pages/blogger-profile/blogger-profile.component';
+import { BloggerInformationComponent } from './blog/pages/blogger-profile/blogger-information/blogger-information.component';
+import { BloggerArticlesComponent } from './blog/pages/blogger-profile/blogger-articles/blogger-articles.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { BloggerProfileComponent } from './blog/pages/blogger-profile/blogger-pr
     BlogComponent,
     ArticleDetailComponent,
     BloggerProfileComponent,
+    BloggerInformationComponent,
+    BloggerArticlesComponent,
   ],
   imports: [
     BrowserModule,

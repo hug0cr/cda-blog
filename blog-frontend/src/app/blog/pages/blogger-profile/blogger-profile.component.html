@@ -1,1 +1,4 @@
-<p>blogger-profile works!</p>
+<div class="container">
+  <app-blogger-information [keycloakProfile]="keycloakProfile$ | async"></app-blogger-information>
+  <app-blogger-articles [articles]="articles | async"></app-blogger-articles>
+</div>

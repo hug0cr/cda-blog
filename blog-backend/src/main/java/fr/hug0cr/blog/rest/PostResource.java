@@ -38,6 +38,11 @@ public class PostResource {
         return ResponseEntity.ok(postService.get(id));
     }
 
+    @GetMapping("/user/{bloggerId}")
+    public ResponseEntity<List<PostDTO>> getPostsByBloggerId(@PathVariable(name = "bloggerId") final UUID bloggerId) {
+        return ResponseEntity.ok(postService.findByBloggerId(bloggerId));
+    }
+
     @PostMapping
     @ApiResponse(responseCode = "201")
     @Secured("ROLE_USER")

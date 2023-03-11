@@ -15,11 +15,15 @@ export class ArticleService {
     return this.http.get<ArticleDto[]>(this.apiUrl)
   }
 
-  createArticle(article: ArticleDto): Observable<number> {
-    return this.http.post<number>(this.apiUrl, article);
-  }
-
   getArticle(id: number) {
     return this.http.get<ArticleDto>(`${this.apiUrl}/${id}`)
+  }
+
+  getArticlesByBloggerId(id: string): Observable<ArticleDto[]> {
+    return this.http.get<ArticleDto[]>(`${this.apiUrl}/user/${id}`)
+  }
+
+  createArticle(article: ArticleDto): Observable<number> {
+    return this.http.post<number>(this.apiUrl, article);
   }
 }

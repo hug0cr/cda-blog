@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {KeycloakProfile} from "keycloak-js";
 import {KeycloakService} from "keycloak-angular";
+import {ArticleService} from "../../data/model/article.service";
+import {ArticleDto} from "../../data/model/dto/article-dto";
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-blogger-profile',
@@ -8,14 +11,26 @@ import {KeycloakService} from "keycloak-angular";
   styleUrls: ['./blogger-profile.component.scss']
 })
 export class BloggerProfileComponent {
-  isLoggedIn$: Promise<boolean> = this.keycloakService.isLoggedIn();
   keycloakProfile$: Promise<KeycloakProfile | null> = this.keycloakService.loadUserProfile()
+    .then(keycloakProfile => {
+      this.getBloggerArticles(keycloakProfile.id ?? '')
+      return keycloakProfile;
+    })
     .catch(reason => {
       console.log(reason)
       return null;
     });
 
-  constructor(private keycloakService: KeycloakService) {
+  articles: BehaviorSubject<ArticleDto[]> = new BehaviorSubject<ArticleDto[]>([]);
+
+  constructor(private keycloakService: KeycloakService, private articleService: ArticleService) {
+  }
+
+  getBloggerArticles(bloggerId: string): void {
+    this.articleService.getArticlesByBloggerId(bloggerId)
+      .subscribe((articles: ArticleDto[]) => {
+        this.articles.next(articles || []);
+      });
   }
 
 }
