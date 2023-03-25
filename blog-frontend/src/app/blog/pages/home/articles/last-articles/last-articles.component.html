@@ -3,12 +3,12 @@
   <article *ngFor="let article of lastArticles">
     <div class="card m-3">
       <div class="card-body">
-        <h5 class="card-title">{{article.title}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">by {{article.blogger}}</h6>
+        <h5 class="card-title">{{article.article.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">by {{article.blogger.username}}</h6>
         <p class="card-text">
-          {{ article.content.length > 300 ? article.content.slice(0, 300) + '...' : article.content }}
+          {{ article.article.content.length > 300 ? article.article.content.slice(0, 300) + '...' : article.article.content }}
         </p>
-        <a routerLink="/article/{{article.id}}" class="card-link">Read</a>
+        <a routerLink="/article/{{article.article.id}}" class="card-link">Read</a>
       </div>
     </div>
   </article>

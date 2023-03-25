@@ -43,17 +43,25 @@ public class PostService {
                 .toList();
     }
 
-    public PostDTO get(final Long id) {
-        return postRepository.findById(id)
-                .map(post -> mapToDTO(post, new PostDTO()))
-                .orElseThrow(NotFoundException::new);
-    }
-
     public List<PostDTO> findByBloggerId(UUID bloggerId) {
         List<Post> byBloggerId = postRepository.findByBloggerId(bloggerId);
         return byBloggerId.stream()
                 .map(post -> mapToDTO(post, new PostDTO()))
                 .toList();
+    }
+
+    public List<PostDTO> findPostContaining(String searchTerm) {
+        return postRepository
+                .findBySearchTerm(searchTerm)
+                .stream()
+                .map(post -> mapToDTO(post, new PostDTO()))
+                .toList();
+    }
+
+    public PostDTO get(final Long id) {
+        return postRepository.findById(id)
+                .map(post -> mapToDTO(post, new PostDTO()))
+                .orElseThrow(NotFoundException::new);
     }
 
     public Long create(final PostDTO postDTO, UUID authenticationUUID) {

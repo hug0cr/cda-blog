@@ -1,10 +1,10 @@
-import {ArticleDto} from "../model/dto/article-dto";
-import {BloggerDto} from "../model/dto/blogger-dto";
+import {ArticleDTO} from "../model/dto/article-dto";
+import {BloggerDTO} from "../model/dto/blogger-dto";
 
 export class BloggerProfile {
   constructor(
-    public blogger: BloggerDto,
-    public articles: ArticleDto[],
+    public blogger: BloggerDTO,
+    public articles: ArticleDTO[],
   ) {
   }
 }

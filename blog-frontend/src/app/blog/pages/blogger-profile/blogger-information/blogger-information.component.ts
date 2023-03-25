@@ -3,8 +3,7 @@ import {KeycloakProfile} from "keycloak-js";
 
 @Component({
   selector: 'app-blogger-information',
-  templateUrl: './blogger-information.component.html',
-  styleUrls: ['./blogger-information.component.scss']
+  templateUrl: './blogger-information.component.html'
 })
 export class BloggerInformationComponent {
   @Input() keycloakProfile?: KeycloakProfile;

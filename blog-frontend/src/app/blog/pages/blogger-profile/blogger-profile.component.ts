@@ -2,16 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../core/auth.service";
 import {KeycloakProfile} from "keycloak-js";
 import {ArticleService} from "../../data/model/article.service";
-import {ArticleDto} from "../../data/model/dto/article-dto";
+import {ArticleDTO} from "../../data/model/dto/article-dto";
 
 @Component({
   selector: 'app-blogger-profile',
-  templateUrl: './blogger-profile.component.html',
-  styleUrls: ['./blogger-profile.component.scss']
+  templateUrl: './blogger-profile.component.html'
 })
 export class BloggerProfileComponent implements OnInit {
   keycloakProfile?: KeycloakProfile;
-  articles: ArticleDto[] = []
+  articles: ArticleDTO[] = []
 
   constructor(private authService: AuthService, private articleService: ArticleService) {
   }

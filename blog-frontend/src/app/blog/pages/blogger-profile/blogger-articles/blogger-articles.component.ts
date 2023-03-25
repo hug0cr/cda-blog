@@ -1,11 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {ArticleDto} from "../../../data/model/dto/article-dto";
+import {ArticleDTO} from "../../../data/model/dto/article-dto";
 
 @Component({
   selector: 'app-blogger-articles',
-  templateUrl: './blogger-articles.component.html',
-  styleUrls: ['./blogger-articles.component.scss']
+  templateUrl: './blogger-articles.component.html'
 })
 export class BloggerArticlesComponent {
-  @Input() articles: ArticleDto[] = [];
+  @Input() articles: ArticleDTO[] = [];
 }

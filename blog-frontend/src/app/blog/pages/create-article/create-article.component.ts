@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {ArticleService} from "../../data/model/article.service";
-import {ArticleDto} from "../../data/model/dto/article-dto";
+import {ArticleDTO} from "../../data/model/dto/article-dto";
 import {Router} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
 import {KeycloakProfile} from "keycloak-js";
@@ -11,7 +11,7 @@ import {KeycloakProfile} from "keycloak-js";
   styleUrls: ['./create-article.component.scss']
 })
 export class CreateArticleComponent {
-  articleDto: ArticleDto = {
+  articleDto: ArticleDTO = {
     title: '',
     content: '',
     blogger: '',

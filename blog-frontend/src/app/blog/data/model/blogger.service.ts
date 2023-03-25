@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {BloggerDto} from "./dto/blogger-dto";
+import {BloggerDTO} from "./dto/blogger-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,11 @@ export class BloggerService {
 
   constructor(private http: HttpClient) { }
 
-  getBloggers(): Observable<BloggerDto[]> {
-    return this.http.get<BloggerDto[]>(this.apiUrl)
+  getBloggers(): Observable<BloggerDTO[]> {
+    return this.http.get<BloggerDTO[]>(this.apiUrl)
   }
 
-  getBloggerById(id: string): Observable<BloggerDto> {
-    return this.http.get<BloggerDto>(`${this.apiUrl}/${id}`);
+  getBloggerById(id: string): Observable<BloggerDTO> {
+    return this.http.get<BloggerDTO>(`${this.apiUrl}/${id}`);
   }
 }

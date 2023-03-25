@@ -1,19 +1,22 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 import {KeycloakProfile} from "keycloak-js";
 import {BloggerService} from "../../data/model/blogger.service";
+import {debounceTime, distinct, distinctUntilChanged, map, Observable, Subject, switchMap} from "rxjs";
+import {ArticleDTO} from "../../data/model/dto/article-dto";
+import {ArticleService} from "../../data/model/article.service";
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  templateUrl: './header.component.html'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Input() isLoggedIn?: boolean;
   @Input() keycloakProfile?: KeycloakProfile | null;
+  searchTerm = new Subject<string>();
+  articles$?: Observable<ArticleDTO[]>;
 
-  constructor(private keycloakService: KeycloakService,
-              private bloggerService: BloggerService) {
+  constructor(private keycloakService: KeycloakService, private articleService: ArticleService) {
   }
 
   onSignUp() {
@@ -35,8 +38,16 @@ export class HeaderComponent {
     });
   }
 
-  onClick() {
-    this.bloggerService.getBloggerById('6bf22cb9-7446-4ce6-b8a7-7c44ed354196')
+
+  search(value: string) {
+    this.searchTerm.next(value);
   }
 
+  ngOnInit(): void {
+    this.articles$ = this.searchTerm.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap((term) => this.articleService.searchArticles(term))
+    );
+  }
 }

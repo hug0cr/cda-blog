@@ -7,6 +7,7 @@ import {AuthGuard} from "./core/auth.guard";
 import {BlogComponent} from "./blog/blog.component";
 import {ArticleDetailComponent} from "./blog/pages/article-detail/article-detail.component";
 import {BloggerProfileComponent} from "./blog/pages/blogger-profile/blogger-profile.component";
+import {ArticleEditComponent} from "./blog/pages/article-edit/article-edit.component";
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
       {
         path: 'create-article',
         component: CreateArticleComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'edit-article/:id',
+        component: ArticleEditComponent,
         canActivate: [AuthGuard]
       },
       {

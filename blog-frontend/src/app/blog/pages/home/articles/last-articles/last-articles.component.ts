@@ -1,11 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {Article} from "../../../../data/domain/article";
+import {Article2} from "../../../../data/domain/article2";
 
 @Component({
   selector: 'app-last-articles',
-  templateUrl: './last-articles.component.html',
-  styleUrls: ['./last-articles.component.scss']
+  templateUrl: './last-articles.component.html'
 })
 export class LastArticlesComponent {
-  @Input() lastArticles: Article[] = [];
+  @Input() lastArticles: Article2[] = [];
 }

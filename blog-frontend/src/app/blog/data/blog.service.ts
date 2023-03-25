@@ -3,7 +3,8 @@ import {ArticleService} from "./model/article.service";
 import {BloggerService} from "./model/blogger.service";
 import {Article} from "./domain/article";
 import {forkJoin, map, Observable, switchMap} from "rxjs";
-import {BloggerDto} from "./model/dto/blogger-dto";
+import {BloggerDTO} from "./model/dto/blogger-dto";
+import {ArticleDTO} from "./model/dto/article-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class BlogService {
 
   getLastArticles(): Observable<Article[]> {
     return this.articleService.getArticles().pipe(
-      switchMap(articles => {
+      switchMap((articles: ArticleDTO[]) => {
         const bloggerIds: string[] = articles.map(article => article.blogger ?? '');
         const uniqueBloggerIds: string[] = [...new Set(bloggerIds)];
 
-        const bloggers$: Observable<BloggerDto>[] = uniqueBloggerIds.map(bloggerId => {
+        const bloggers$: Observable<BloggerDTO>[] = uniqueBloggerIds.map(bloggerId => {
           console.log(bloggerId)
           return this.bloggerService.getBloggerById(bloggerId);
         });

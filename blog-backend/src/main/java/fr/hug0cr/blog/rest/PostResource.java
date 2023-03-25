@@ -38,6 +38,11 @@ public class PostResource {
         return ResponseEntity.ok(postService.get(id));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<PostDTO>> searchPosts(@RequestParam final String searchTerm) {
+        return ResponseEntity.ok(postService.findPostContaining(searchTerm));
+    }
+
     @GetMapping("/user/{bloggerId}")
     public ResponseEntity<List<PostDTO>> getPostsByBloggerId(@PathVariable(name = "bloggerId") final UUID bloggerId) {
         return ResponseEntity.ok(postService.findByBloggerId(bloggerId));

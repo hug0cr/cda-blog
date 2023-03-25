@@ -21,6 +21,7 @@ import { ArticleDetailComponent } from './blog/pages/article-detail/article-deta
 import { BloggerProfileComponent } from './blog/pages/blogger-profile/blogger-profile.component';
 import { BloggerInformationComponent } from './blog/pages/blogger-profile/blogger-information/blogger-information.component';
 import { BloggerArticlesComponent } from './blog/pages/blogger-profile/blogger-articles/blogger-articles.component';
+import { ArticleEditComponent } from './blog/pages/article-edit/article-edit.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BloggerArticlesComponent } from './blog/pages/blogger-profile/blogger-a
     BloggerProfileComponent,
     BloggerInformationComponent,
     BloggerArticlesComponent,
+    ArticleEditComponent,
   ],
   imports: [
     BrowserModule,
